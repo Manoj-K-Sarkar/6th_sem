@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html>
+   <head>
+   <h1>STUDENT RECORD</h1>
+      <meta http-equiv = "Content-Type" content = "text/html; charset = utf-8" />
+      <script type = "text/javascript">
+         
+         window.indexedDB = window.indexedDB || window.mozIndexedDB ||
+         window.webkitIndexedDB || window.msIndexedDB;
+         
+         window.IDBTransaction = window.IDBTransaction ||
+         window.webkitIDBTransaction || window.msIDBTransaction;
+         window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange ||
+         window.msIDBKeyRange
+         
+         if (!window.indexedDB) {
+            window.alert("Your browser doesn't support a stable version of IndexedDB.")
+         }
+         
+         const studentData = [
+            { roll: "001711001051", name: "lokesh", year: "2nd", semester: "2nd", mob:'8576312489' },
+            { roll: "001711001052", name: "bhansali", year: "3rd", semester: "2nd", mob:'7602631258'}
+         ];
+         var db;
+var r='1000000';
+         var request = window.indexedDB.open("students", 1);
+         
+         request.onerror = function(event) {
+            alert("error: ");
+         };
+         
+         request.onsuccess = function(event) {
+            db = request.result;
+         };
+         
+         request.onupgradeneeded = function(event) {
+            var db = event.target.result;
+            var objectStore = db.createObjectStore("students", {keyPath: "roll"});
+           
+            for (var i in studentData) {
+               objectStore.add(studentData[i]);
+            }
+         }
+         function show() {
+            var objectStore = db.transaction("students").objectStore("students");
+           
+            objectStore.openCursor().onsuccess = function(event) {
+               var cursor = event.target.result;
+               if(cursor){
+                  alert("Name: " + cursor.value.name + ", Roll: " + cursor.key +" , Year: " + cursor.value.year + ", Semester: "+ cursor.value.semester + ", Mob: " + cursor.value.mob);
+                  cursor.continue();
+               }
+   else
+                  alert("No more entries!");
+            };
+         }
+         
+         function add() {
+   var m = prompt("Enter the roll number:",'01');
+var l =prompt("Enter the name:",'fghnkij');
+var s =prompt("Enter the year:",'2nd');
+var p=prompt("Enter the semester:",'1st');
+var q=prompt("Enter the mobile number:",'8856992565');
+if(m!=null && l!=null && s!=null && p!=null && q!=null){
+            var request = db.transaction(["students"], "readwrite")
+            .objectStore("students")
+            .add({ roll: m, name: l, year: s, semester: p ,mob: q });
+           
+            request.onsuccess = function(event) {
+               alert(l +" has been added to your database.");
+            };
+           
+            request.onerror = function(event) {
+               alert("Unable to add data\r\n"+ m +" is aready exist in your database! ");
+            }
+ }
+         }
+function update(){
+  var count=0;
+  var m = prompt("Enter the updated roll number:",'01');
+var l =prompt("Enter the updated name:",'fghnkij');
+var s =prompt("Enter the updated year:",'2nd');
+var p=prompt("Enter the updated semester:",'1st');
+var q=prompt("Enter the updated mobile number:",'8856992565');
+var objectStore = db.transaction("students").objectStore("students");
+            objectStore.openCursor().onsuccess = function(event) {
+               var cursor = event.target.result;
+if(cursor){  
+   if(cursor.key==m){
+    count++;
+}
+cursor.continue();
+ }
+ if(count>0){
+      var request = db.transaction(["students"], "readwrite").objectStore("students").put({roll:m,name:l,year:s,semester:p,mob:q});
+      request.onsuccess=function(event){
+          alert("updated successfully!");
+       }
+     request.onerror=function(event){
+          alert("updation unsuccessfull!");
+       }
+    }
+ else if(count==0)
+   alert("Data not in database!");
+  }
+}
+         
+         function remove() {
+   r = prompt("Enter the roll number:",'001711001050');
+            var request = db.transaction(["students"], "readwrite").objectStore("students").delete(r);
+           
+            request.onsuccess = function(event) {
+               alert(r +" roll number entry has been removed from your database.");
+            };
+request.onerror= function(event){
+  alert("Roll number to be deleted not in database!");
+}
+         }
+      </script>
+ <style>
+   body{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+button {
+border-radius: 20px;
+background-color:#a0ffe6 ;
+color: black;
+padding: 10px 10px;
+margin: 4px 0;
+border: none;
+cursor: pointer;
+width: 150px;
+}
+ </style>
+     
+   </head>
+   <body>
+      <button onclick = "add()">Adddata </button><br>
+ <button onclick = "show()">show </button><br>
+      <button onclick = "update()">update </button><br>
+      <button onclick = "remove()">Delete </button>
+   </body>
+</html>

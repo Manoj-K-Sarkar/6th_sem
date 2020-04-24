@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>
+            Online Fees For BE Students
+        </title>
+        <script>
+            function showAmount()
+            {
+                year = document.getElementById("year").value;
+                sem = document.getElementById("semester").value;
+                if(sem == "1st") {
+                    if(year == "1st") 
+                        document.getElementById("fees").innerText = "Amount to pay Rs. 20,000 ";
+                    else if(year == "2nd") 
+                        document.getElementById("fees").innerText = "Amount to pay Rs. 30,000 ";
+                    else if(year == "3rd") 
+                        document.getElementById("fees").innerText = "Amount to pay Rs. 40,000 ";
+                    else
+                        document.getElementById("fees").innerText = "Amount to pay Rs. 50,000 ";
+                }else {
+                    if(year == "1st") 
+                        document.getElementById("fees").innerText = "Amount to pay Rs. 25,000 ";
+                    else if(year == "2nd") 
+                        document.getElementById("fees").innerText = "Amount to pay Rs. 35,000 ";
+                    else if(year == "3rd") 
+                        document.getElementById("fees").innerText = "Amount to pay Rs. 45,000 ";
+                    else
+                        document.getElementById("fees").innerText = "Amount to pay Rs. 55,000 ";
+                }
+            }
+
+            function showForPayNow()
+            {
+                
+                    document.getElementById("submit").hidden = false;
+                    document.getElementById("lastdate").hidden = true;
+            }
+            function showForPayLater() {
+                    document.getElementById("submit").hidden = true;
+                    document.getElementById("lastdate").hidden = false;
+            }
+        </script>
+    </head>
+    <body>
+        <select name="year" id="year" onchange="showAmount()">
+            <option value="1st">1st year</option>
+            <option value="2nd">2nd year</option>
+            <option value="3rd">3rd year</option>
+            <option value="4th">4th year</option>
+        </select>
+        <select name="semester" id="semester" onchange="showAmount()">
+            <option value="1st">1st semester</option>
+            <option value="2nd">2nd semester</option>
+        </select>
+        <br><br><br>
+        <input type="radio" name = "pay" onchange="showForPayNow()">Pays Fee Now
+        <br>
+        <input type="radio" name = "pay" onchange="showForPayLater()">Pays Fee Later
+        <br>
+        <p id="fees"></p>
+        <br>
+        <input id="submit" type="submit" value = "Submit" hidden>
+        <p id="lastdate" hidden>The Last Of Submission is 28Feb'2020</p>
+        <script>
+            showAmount();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" standalone="yes"?>
+
+<!DOCTYPE question-paper[
+	<!ELEMENT question-paper (question*)>
+	<!ELEMENT question (text, optionA, optionB, optionC, optionD, answer)>
+	<!ELEMENT text (#PCDATA)>
+	<!ELEMENT optionA (#PCDATA)>
+	<!ELEMENT optionB (#PCDATA)>
+	<!ELEMENT optionC (#PCDATA)>
+	<!ELEMENT optionD (#PCDATA)>
+	<!ELEMENT answer (#PCDATA)>
+	<!ATTLIST question no CDATA #REQUIRED>
+	<!ATTLIST answer value (optionA|optionB|optionC|optionD) #REQUIRED>
+]>
+
+<question-paper>
+	<question no="1">
+		<text>Who is known as Baapu?</text>
+		<optionA>Sardar B. Patel</optionA>
+		<optionB>Pandit J. Nehru</optionB>
+		<optionC>Mahatma Gandhi</optionC>
+		<optionD>Lal Bahadur Sashtri</optionD>
+		<answer value="optionC"></answer>
+	</question>
+	<question no="2">
+		<text>Who is the Prime Minister of India?</text>
+		<optionA>Ramnath Kobind</optionA>
+		<optionB>Manmohon Sing</optionB>
+		<optionC>Rahul gandhi</optionC>
+		<optionD>Narendra Modi</optionD>
+		<answer value="optionD"></answer>
+	</question>
+	<question no="3">
+		<text>Who is the CEO of google?</text>
+		<optionA>Sundar Pichai</optionA>
+		<optionB>Jeff Bezzos</optionB>
+		<optionC>Mark JukerBarg</optionC>
+		<optionD>Mukesh Ambani</optionD>
+		<answer value="optionA"></answer>
+	</question>
+	<question no="4">
+		<text>Which is an Object Oriented Language?</text>
+		<optionA>C</optionA>
+		<optionB>JAVA</optionB>
+		<optionC>COBAL</optionC>
+		<optionD>HTML</optionD>
+		<answer value="optionB"></answer>
+	</question>
+</question-paper>
